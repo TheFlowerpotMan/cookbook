@@ -10,7 +10,7 @@
 <style>
 	main {
 		padding: 1em;
-		max-width: 240px;
+		max-width: 85%;
 		margin: 0 auto;
 	}
 
@@ -22,9 +22,10 @@
 		font-weight: 100;
 	}
 
-	@media (min-width: 640px) {
+	@media (max-width: 768px) {
 		main {
-			max-width: none;
+			max-width: 85%;
+			margin: auto;
 		}
 	}
 </style>

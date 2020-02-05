@@ -20,7 +20,8 @@
 
     function search() {
         if (searchCriteria && searchCriteria.length > 0) {
-            let filteredTags = tagMap.filter(x => x.tag.includes(searchCriteria));
+            let lowercase = searchCriteria.toLowerCase();
+            let filteredTags = tagMap.filter(x => x.tag.includes(lowercase));
             let filteredRecipes = [];
             for (let tag of filteredTags) {
                 filteredRecipes.push(data.recipes.find(x => x.title === tag.recipeTitle));
@@ -59,6 +60,12 @@
     h2:hover {
         cursor: pointer;
         font-weight: 200;
+    }
+    @media (max-width: 768px) {
+		main {
+			max-width: 85%;
+			margin: auto;
+		}
     }
 </style>
 

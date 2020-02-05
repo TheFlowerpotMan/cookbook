@@ -19,6 +19,13 @@
   .list-item {
     padding-top: 15px;
   }
+  @media (max-width: 768px) {
+		main {
+			max-width: 85%;
+			margin: auto;
+      margin-left: 10px;
+		}
+  }
 </style>
 
 <main>
