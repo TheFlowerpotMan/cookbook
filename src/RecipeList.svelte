@@ -7,6 +7,14 @@
     let currentRecipe = null;
     let searchCriteria = null;
     let tagMap = [];
+    let requestData = getData();
+
+    async function getData() {
+        return await fetch(`http://192.168.1.11:9000/recipes`).then(result => {
+            return result.json;
+        });
+
+    }
 
     for (let recipe of data.recipes) {
         for (let tag of recipe.tags) {
@@ -36,6 +44,10 @@
 
 <main>
     <input bind:value={searchCriteria} on:change={search} placeholder="Search here...">
+    <p>
+        Request Data:<br>
+        {requestData}
+    </p>
     {#each recipeList as recipe}
         <h2 on:click={() => showRecipe(recipe.title)}>{recipe.title}</h2>
         {#if currentRecipe && currentRecipe === recipe.title}
