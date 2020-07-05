@@ -15,7 +15,7 @@
   }
 
   async function getResult() {
-    let response = await fetch(`/cookbook-api/recipes`);
+    let response = await fetch(`https:benord.dev:8443/cookbook-api/recipes`);
     let text = await response.text();
     let data = text;
     return data;
