@@ -7,6 +7,7 @@
   let currentRecipe = null;
   let searchCriteria = null;
   let tagMap = [];
+  let importedData = getResult();
 
   for (let recipe of data.recipes) {
     for (let tag of recipe.tags) {
@@ -15,10 +16,12 @@
   }
 
   async function getResult() {
-    let response = await fetch(`https:benord.dev:8443/cookbook-api/recipes`);
-    let text = await response.text();
-    let data = text;
-    return data;
+    let response = fetch(`https:benord.dev:8443/cookbook-api/recipes`).then(
+      data => {
+        debugger;
+        return data;
+      }
+    );
   }
 
   function showRecipe(title) {
@@ -64,6 +67,7 @@
     bind:value={searchCriteria}
     on:change={search}
     placeholder="Search here..." />
+  <div>{importedData}</div>
   {#each recipeList as recipe}
     <h2 on:click={() => showRecipe(recipe.title)}>{recipe.title}</h2>
     {#if currentRecipe && currentRecipe === recipe.title}
