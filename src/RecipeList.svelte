@@ -12,13 +12,14 @@
     let response = fetch(`https://benord.dev:8443/cookbook-api/recipes`).then(
       data => {
         recipeList = data;
-        buildTagMap();
+        // TODO: Need to add tags into DB
+        // buildTagMap();
       }
     );
   }
 
   function buildTagMap() {
-    for (let recipe of data.recipes) {
+    for (let recipe of recipeList) {
       for (let tag of recipe.tags) {
         tagMap.push({ tag: tag, recipeId: recipe.id });
       }
