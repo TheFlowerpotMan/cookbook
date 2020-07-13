@@ -1,6 +1,5 @@
 <script>
   import { slide } from "svelte/transition";
-  import data from "./kitchen-recipes.js";
   import Recipe from "./Recipe.svelte";
 
   let recipeList = getAllRecipes();
