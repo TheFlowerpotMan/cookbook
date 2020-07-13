@@ -11,7 +11,7 @@
   async function getAllRecipes() {
     let response = fetch(`https://benord.dev:8443/cookbook-api/recipes`).then(
       data => {
-        recipeList = data;
+        recipeList = data.body;
         // TODO: Need to add tags into DB
         // buildTagMap();
       }
