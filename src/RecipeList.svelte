@@ -66,12 +66,14 @@
     bind:value={searchCriteria}
     on:change={search}
     placeholder="Search here..." />
-  {#each recipeList as recipe}
-    <h2 on:click={() => showRecipe(recipe.id)}>{recipe.id}</h2>
-    {#if currentRecipeId && currentRecipeId === recipe.id}
-      <div transition:slide>
-        <Recipe class="recipe" {recipe} />
-      </div>
-    {/if}
-  {/each}
+  {#if recipeList}
+    {#each recipeList as recipe}
+      <h2 on:click={() => showRecipe(recipe.id)}>{recipe.id}</h2>
+      {#if currentRecipeId && currentRecipeId === recipe.id}
+        <div transition:slide>
+          <Recipe class="recipe" {recipe} />
+        </div>
+      {/if}
+    {/each}
+  {/if}
 </main>
