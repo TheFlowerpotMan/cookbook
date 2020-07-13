@@ -2,23 +2,27 @@
   import { slide } from "svelte/transition";
   import Recipe from "./Recipe.svelte";
 
-  let recipeList = getAllRecipes();
+  let recipeList = null;
   let currentRecipeId = null;
   let searchCriteria = null;
   let tagMap = [];
-
-  for (let recipe of data.recipes) {
-    for (let tag of recipe.tags) {
-      tagMap.push({ tag: tag, recipeId: recipe.id });
-    }
-  }
+  getAllRecipes();
 
   async function getAllRecipes() {
     let response = fetch(`https://benord.dev:8443/cookbook-api/recipes`).then(
       data => {
-        return data;
+        recipeList = data;
+        buildTagMap();
       }
     );
+  }
+
+  function buildTagMap() {
+    for (let recipe of data.recipes) {
+      for (let tag of recipe.tags) {
+        tagMap.push({ tag: tag, recipeId: recipe.id });
+      }
+    }
   }
 
   function showRecipe(id) {
@@ -30,9 +34,7 @@
       let filteredTags = tagMap.filter(x => x.tag.includes(searchCriteria));
       let filteredRecipes = [];
       for (let tag of filteredTags) {
-        filteredRecipes.push(
-          data.recipes.find(x => x.id === tag.recipeId)
-        );
+        filteredRecipes.push(data.recipes.find(x => x.id === tag.recipeId));
       }
       const unique = new Set(filteredRecipes);
       recipeList = [...unique];
@@ -68,7 +70,7 @@
     <h2 on:click={() => showRecipe(recipe.id)}>{recipe.id}</h2>
     {#if currentRecipeId && currentRecipeId === recipe.id}
       <div transition:slide>
-        <Recipe class="recipe" recipe={recipe} />
+        <Recipe class="recipe" {recipe} />
       </div>
     {/if}
   {/each}
