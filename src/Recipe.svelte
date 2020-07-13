@@ -1,8 +1,7 @@
 <script>
-  import data from "./kitchen-recipes.js";
-
-  export let title;
-  let recipe = data.recipes.find(x => x.title === title);
+  export let recipe;
+  let ingredients = JSON.parse(recipe.ingredients);
+  let instructions = JSON.parse(recipe.instructions);
 </script>
 
 <style>
@@ -23,9 +22,9 @@
 
 <main>
   <span class="section-title">Prep:</span>
-  {recipe.time.prep}&nbsp;&nbsp;&nbsp;&nbsp;
+  {recipe.prep_time}&nbsp;&nbsp;&nbsp;&nbsp;
   <span class="section-title">Cook:</span>
-  {recipe.time.cook}&nbsp;&nbsp;&nbsp;&nbsp;
+  {recipe.cook_time}&nbsp;&nbsp;&nbsp;&nbsp;
   <span class="section-title">Serves:</span>
   {recipe.servings}
   {#if recipe.description}
@@ -34,11 +33,11 @@
     <hr />
   {/if}
   <div class="section-title">Ingredients</div>
-  {#each recipe.ingredients as ingredient}
-    <div class="list-item">{ingredient.amount} {ingredient.title}</div>
+  {#each ingredients as ingredient}
+    <div class="list-item">{ingredient.amount}{ingredient.unit} {ingredient.title}</div>
   {/each}
   <div class="section-title">Directions</div>
-  {#each recipe.instructions as instruction, i}
+  {#each instructions as instruction, i}
     <div class="list-item">{i + 1} - {instruction.step}</div>
   {/each}
 </main>

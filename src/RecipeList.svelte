@@ -3,29 +3,27 @@
   import data from "./kitchen-recipes.js";
   import Recipe from "./Recipe.svelte";
 
-  let recipeList = data.recipes;
-  let currentRecipe = null;
+  let recipeList = getAllRecipes();
+  let currentRecipeId = null;
   let searchCriteria = null;
   let tagMap = [];
-  let importedData = getResult();
 
   for (let recipe of data.recipes) {
     for (let tag of recipe.tags) {
-      tagMap.push({ tag: tag, recipeTitle: recipe.title });
+      tagMap.push({ tag: tag, recipeId: recipe.id });
     }
   }
 
-  async function getResult() {
-    let response = fetch(`https:benord.dev:8443/cookbook-api/recipes`).then(
+  async function getAllRecipes() {
+    let response = fetch(`https://benord.dev:8443/cookbook-api/recipes`).then(
       data => {
-        debugger;
         return data;
       }
     );
   }
 
-  function showRecipe(title) {
-    currentRecipe = currentRecipe && currentRecipe === title ? null : title;
+  function showRecipe(id) {
+    currentRecipeId = currentRecipeId && currentRecipeId === id ? null : id;
   }
 
   function search() {
@@ -34,7 +32,7 @@
       let filteredRecipes = [];
       for (let tag of filteredTags) {
         filteredRecipes.push(
-          data.recipes.find(x => x.title === tag.recipeTitle)
+          data.recipes.find(x => x.id === tag.recipeId)
         );
       }
       const unique = new Set(filteredRecipes);
@@ -67,12 +65,11 @@
     bind:value={searchCriteria}
     on:change={search}
     placeholder="Search here..." />
-  <div>{importedData}</div>
   {#each recipeList as recipe}
-    <h2 on:click={() => showRecipe(recipe.title)}>{recipe.title}</h2>
-    {#if currentRecipe && currentRecipe === recipe.title}
+    <h2 on:click={() => showRecipe(recipe.id)}>{recipe.id}</h2>
+    {#if currentRecipeId && currentRecipeId === recipe.id}
       <div transition:slide>
-        <Recipe class="recipe" title={recipe.title} />
+        <Recipe class="recipe" recipe={recipe} />
       </div>
     {/if}
   {/each}
