@@ -1,7 +1,7 @@
 <script>
   export let recipe;
-  let ingredients = JSON.parse(recipe.ingredients);
-  let instructions = JSON.parse(recipe.instructions);
+  let ingredients = recipe.ingredients;
+  let instructions = recipe.instructions;
 </script>
 
 <style>
