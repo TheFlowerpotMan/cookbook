@@ -34,10 +34,10 @@
   {/if}
   <div class="section-title">Ingredients</div>
   {#each ingredients as ingredient}
-    <div class="list-item">{ingredient.amount}{ingredient.unit} {ingredient.title}</div>
+    <div class="list-item">{ingredient.amount}&nbsp;{ingredient.unit}&nbsp;{ingredient.name}</div>
   {/each}
   <div class="section-title">Directions</div>
-  {#each instructions as instruction, i}
-    <div class="list-item">{i + 1} - {instruction.step}</div>
+  {#each instructions as step, i}
+    <div class="list-item">{i + 1} - {step.instruction}</div>
   {/each}
 </main>
