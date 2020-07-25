@@ -9,13 +9,13 @@
   getAllRecipes();
 
   async function getAllRecipes() {
-    let response = fetch(`https://benord.dev:8443/cookbook-api/recipes`).then(
-      data => {
-        recipeList = data.body;
+    let response = fetch(`https://benord.dev:8443/cookbook-api/recipes`)
+      .then(response => response.json())
+      .then(data => {
+        recipeList = data;
         // TODO: Need to add tags into DB
         // buildTagMap();
-      }
-    );
+      });
   }
 
   function buildTagMap() {
